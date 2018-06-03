@@ -66,6 +66,20 @@ def comp_play(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 			end
 		end
 	end
+	(0..8).each do |i|
+		bell = winning_Arry[i]
+		x_dig = bell.select{|key, value| value == "X"}
+		o_dig = bell.select{|key, value| value == "O"}
+		na_dig = bell.select{|key, value| value == ""}
+		if o_dig.size == 2
+			if x_dig.size < 1
+				$comp_pick = na_dig.key("")
+			end
+		end
+	end
+	if Hush[5] == ""
+		$comp_pick = 5.to_s
+	end
 	
 
 

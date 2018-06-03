@@ -41,21 +41,46 @@ def comp_play(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 	wc6	= [1 => a1, 4 => a4, 7 => a7]
 	wc7	= [2 => a2, 5 => a5, 8 => a8]
 	wc8	= [3 => a3, 6 => a6, 9 => a9]
+	corners = [1 => a1, 3 => a3, 7 => a7, 9 => a9]
+	edges = [2 => a2, 4 => a4, 6 => a6, 8 => a8]
+	middle =[5 => a5]
+	edges.each do |key, value|
+		if value == ""
+			$comp_pick = key
+		end
+	end
+	corners.each do |key, value|
+		if value == ""
+			$comp_pick = key
+		end
+	end
+	winning_Arry = [wc1, wc2, wc3, wc4, wc5, wc6, wc7, wc8]
+	(0..8).each do |i|
+		bell = winning_Arry[i]
+		x_dig = bell.select{|key, value| value == "X"}
+		o_dig = bell.select{|key, value| value == "O"}
+		na_dig = bell.select{|key, value| value == ""}
+		if x_dig.size == 2
+			if o_dig.size < 1
+				$comp_pick = na_dig.key("")
+			end
+		end
+	end
+	
 
-def corners()
-	corners = [a1, a3, a7, a9]
-end
 
-def edges()
-	edges = [a2, a4, a6, a8]
-end
 
-def middle()
-	middle = a5
-end
 
-def computer_play
-	if a5 == " "
-		a5 = "O"
-	elsif a5 == "X"
-		a7 = "O"
+
+
+
+
+
+
+
+
+
+
+
+
+

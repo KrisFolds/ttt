@@ -5,9 +5,9 @@ enable :sessions
 
    
 get '/' do
-
 	erb :home	
 end
+
 
 post '/play' do
 	session[:a1] = params[:a1]
@@ -19,6 +19,7 @@ post '/play' do
 	session[:a7] = params[:a7]
 	session[:a8] = params[:a8]
 	session[:a9] = params[:a9]
+	session[:play_type] = params[:play_type]
 	redirect '/play'
 end
 
@@ -32,25 +33,24 @@ get '/play' do
 	a7 = session[:a7]
 	a8 = session[:a8]
 	a9 = session[:a9]
-	"X" == '/img/smile.jpg'
-	"O" == '/img/smile2.jpg'
-
-	if    a1 == "O"
+    play_type = session[:play_type]
+    puts play_type
+	if a1 == "O"
 	      a1 = "O"
-	elsif a1 == """"
-		  a1 = """"
+	elsif a1 == ""
+		  a1 = ""
 	else a1 = "X"
 	end
 	if a2 == "O"
 		a2 = "O"
-	elsif a2 == """"
-		a2 = """"
+	elsif a2 == ""
+		a2 = ""
 	else a2 = "X"
 	end
 	if a3 == "O"
 		a3 = "O"
-	elsif a3 == """"
-		a3 = """"
+	elsif a3 == ""
+		a3 = ""
 	else a3 = "X"
 	end
 	if a4 == "O"
@@ -89,9 +89,15 @@ get '/play' do
 		a9 = ""
 	else a9 = "X"
 	end
-	
-	random = plays_random(a1, a2, a3, a4, a5, a6, a7, a8, a9)
-	puts "random is #{random}"
+	if play_type == "easy"
+		play_type = "easy"
+	elsif play_type == "hard"
+		play_type = "hard" 
+	else play_type == """"
+	end	 		
+	if play_type == "wimp"
+		random = plays_random(a1, a2, a3, a4, a5, a6, a7, a8, a9)
+	end
 	if random == "a1"
 		a1 = "O"
 	elsif random == "a2"
@@ -111,6 +117,8 @@ get '/play' do
 	elsif random == "a9"
 		a9 = "O"
 	end
-	puts a1, a2, a3, a4, a5, a6, a7, a8, a9
-	erb :play, :locals => {:a1 => a1, :a2 => a2, :a3 => a3, :a4 => a4, :a5 => a5, :a6 => a6, :a7 => a7, :a8 => a8, :a9 => a9,}
+	if play_type == "warrior"
+		random = comp_play(a1, a2, a3, a4, a5, a6, a7, a8, a9)	
+	end
+	erb :play, :locals => {:a1 => a1, :a2 => a2, :a3 => a3, :a4 => a4, :a5 => a5, :a6 => a6, :a7 => a7, :a8 => a8, :a9 => a9, :play_type => play_type}
 end

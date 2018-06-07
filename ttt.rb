@@ -80,8 +80,8 @@ def comp_play(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 		end
 	end
 	
-	over = "g" << $comp_pick.to_s
-	return over
+	out = "g" << $comp_pick.to_s
+	return out
 end
 
 

@@ -35,46 +35,64 @@ def comp_play(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 	c_hash = {1 => a1, 2 => a2, 3 => a3, 4 => a4, 5 => a5, 6 => a6, 7 => a7, 8 => a8, 9 => a9}
 	all_values_array = [a1, a2, a3, a4, a5, a6, a7, a8, a9]
 
-	wc1 = [1 => a1, 2 => a2, 3 => a3]
-	wc2 = [4 => a4, 5 => a5, 6 => a6]
-	wc3	= [7 => a7, 8 => a8, 9 => a9]
-	wc4 = [1 => a1, 5 => a5, 9 => a9]
-	wc5	= [3 => a3, 5 => a5, 7 => a7]
-	wc6	= [1 => a1, 4 => a4, 7 => a7]
-	wc7	= [2 => a2, 5 => a5, 8 => a8]
-	wc8	= [3 => a3, 6 => a6, 9 => a9]
-	corners = [1 => a1, 3 => a3, 7 => a7, 9 => a9]
-	edges = [2 => a2, 4 => a4, 6 => a6, 8 => a8]
-	middle =[5 => a5]
+	wc1 = {1 => a1, 2 => a2, 3 => a3}
+	wc2 = {4 => a4, 5 => a5, 6 => a6}
+	wc3	= {7 => a7, 8 => a8, 9 => a9}
+	wc4 = {1 => a1, 5 => a5, 9 => a9}
+	wc5	= {3 => a3, 5 => a5, 7 => a7}
+	wc6	= {1 => a1, 4 => a4, 7 => a7}
+	wc7	= {2 => a2, 5 => a5, 8 => a8}
+	wc8	= {3 => a3, 6 => a6, 9 => a9}
+	corners = {1 => a1, 3 => a3, 7 => a7, 9 => a9}
+	edges = {2 => a2, 4 => a4, 6 => a6, 8 => a8}
+	middle ={5 => a5}
 	edges.each do |key, value|
-		if value == ""
+		p "edges is #{key}"
+		p "value is #{value}"
+		if value == ''
 			$comp_pick = key
+			p "found edge pick #{$comp_pick}"
 		end
 	end
 	corners.each do |key, value|
-		if value == ""
+		p "corners is #{value}"
+		p "array is #{all_values_array}"
+		if value == ''
 			$comp_pick = key
 		end
 	end
 	winning_Array = [wc1, wc2, wc3, wc4, wc5, wc6, wc7, wc8]
 	(0..8).each do |i|
 		bell = winning_Array[i]
-		x_dig = bell.select {|key, value| value = "X"}
-		o_dig = bell.select {|key, value| value = "O"}
-		na_dig = bell.select {|key, value| value = ""}
-		if x_dig.length == 2
-			if o_dig.length < 1
-				$comp_pick = na_dig.key("")
+		p "bell is #{bell}"
+		if bell != nil			
+			if bell.has_value?("X")
+				x_dig = bell.select {|key, value| value = "X"}
+			end
+			if bell.has_value?("O")
+				o_dig = bell.select {|key, value| value = "O"}
+			end
+			if bell.has_value?("")
+				na_dig = bell.select {|key, value| value = ""}
 			end
 		end
-		if o_dig.length == 2
-			if x_dig.length < 1
+		p "this is o_dig #{o_dig}"
+		p "this is x_dig #{x_dig}"
+		if x_dig != nil && x_dig.length == 3
+			p "potential block here"
+			if o_dig == nil
+				$comp_pick = na_dig.key("")
+			end
+		elsif o_dig != nil && o_dig.length == 2
+			p "potential o block here"
+			if x_dig == nil
 				$comp_pick = na_dig.key("")
 			end
 		end
 	end
 
 	out = "a" << $comp_pick.to_s
+	p out
 	return out
 end
 

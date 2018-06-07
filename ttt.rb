@@ -59,28 +59,22 @@ def comp_play(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 	winning_Array = [wc1, wc2, wc3, wc4, wc5, wc6, wc7, wc8]
 	(0..8).each do |i|
 		bell = winning_Array[i]
-		x_dig = bell.select {|key, value| value == "X"}
-		o_dig = bell.select {|key, value| value == "O"}
-		na_dig = bell.select {|key, value| value == ""}
-		if x_dig.size == 2
-			if o_dig.size < 1
+		x_dig = bell.select {|key, value| value = "X"}
+		o_dig = bell.select {|key, value| value = "O"}
+		na_dig = bell.select {|key, value| value = ""}
+		if x_dig.length == 2
+			if o_dig.length < 1
+				$comp_pick = na_dig.key("")
+			end
+		end
+		if o_dig.length == 2
+			if x_dig.length < 1
 				$comp_pick = na_dig.key("")
 			end
 		end
 	end
-	(0..8).each do |i|
-		bell = winning_Array[i]
-		x_dig = bell.select {|key, value| value == "X"}
-		o_dig = bell.select {|key, value| value == "O"}
-		na_dig = bell.select {|key, value| value == ""}
-		if o_dig.size == 2
-			if x_dig.size < 1
-				$comp_pick = na_dig.key("")
-			end
-		end
-	end
-	
-	out = "g" << $comp_pick.to_s
+
+	out = "a" << $comp_pick.to_s
 	return out
 end
 

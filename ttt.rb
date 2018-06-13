@@ -62,34 +62,36 @@ def comp_play(a1, a2, a3, a4, a5, a6, a7, a8, a9)
 		end
 	end
 	winning_Array = [wc1, wc2, wc3, wc4, wc5, wc6, wc7, wc8]
+	x_dig = {"test" => "test"}
+	o_dig = {"test" => "test"}
+	na_dig = {"test" => "test"}
 	(0..8).each do |i|
 		bell = winning_Array[i]
 		p "bell is #{bell}"
-		if bell != nil			
-			if bell.has_value?("X")
+			if bell != nil && bell.has_value?("X")
 				x_dig = bell.select {|key, value| value = "X"}
 			end
-			if bell.has_value?("O")
+			if bell != nil && bell.has_value?("O")
 				o_dig = bell.select {|key, value| value = "O"}
 			end
-			if bell.has_value?("")
+			if bell != nil && bell.has_value?("")
 				na_dig = bell.select {|key, value| value = ""}
 			end
-		end
+	end
 		p "this is o_dig #{o_dig}"
 		p "this is x_dig #{x_dig}"
-		if x_dig != nil && x_dig.length == 3
+		if x_dig.count - 1 == 2
 			p "potential block here"
-			if o_dig == nil
+			if o_dig.count - 1 == 0
 				$comp_pick = na_dig.key("")
 			end
-		elsif o_dig != nil && o_dig.length == 2
+		elsif o_dig.count == 2
 			p "potential o block here"
-			if x_dig == nil
+			if x_dig.count - 1 == 0
 				$comp_pick = na_dig.key("")
 			end
 		end
-	end
+	
 
 	out = "a" << $comp_pick.to_s
 	p out
